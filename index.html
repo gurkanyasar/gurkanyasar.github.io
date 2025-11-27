@@ -67,19 +67,19 @@
                 </div>
             </section>
             <!--
-                <section class="section">
-                    <h2><i class="fas fa-briefcase"></i> Deneyimler</h2>
-                    <div class="timeline-item">
-                        <h3></h3>
-                        <span class="date"></span>
-                        <p></p>
-                        <ul>
-                            <li></li>
-                            <li></li>
-                        </ul>
-                    </div>
-                </section>
-        -->
+                    <section class="section">
+                        <h2><i class="fas fa-briefcase"></i> Deneyimler</h2>
+                        <div class="timeline-item">
+                            <h3></h3>
+                            <span class="date"></span>
+                            <p></p>
+                            <ul>
+                                <li></li>
+                                <li></li>
+                            </ul>
+                        </div>
+                    </section>
+            -->
             <section class="section">
                 <h2><i class="fas fa-graduation-cap"></i> Eğitim</h2>
                 <div class="timeline-item">
@@ -123,25 +123,24 @@
                 <form action="https://formsubmit.co/dgurkanyasar27@gmail.com" method="POST" class="contact-form">
 
                     <input type="hidden" name="_captcha" value="false">
-                    <input type="hidden" name="_next" value="https://davutgurkanyasar.com/tesekkur.html">
 
                     <div class="form-group">
-                        <label for="name">İsim Soyisim</label>
+                        <label for="name">İsim Soyisim*</label>
                         <input type="text" id="name" name="name" required placeholder="Adınız">
                     </div>
 
                     <div class="form-group">
-                        <label for="email">E-posta Adresi (Zorunlu)</label>
+                        <label for="email">E-posta Adresi*</label>
                         <input type="email" id="email" name="email" required placeholder="ornek@email.com">
                     </div>
 
                     <div class="form-group">
-                        <label for="phone">Telefon Numarası (Zorunlu)</label>
+                        <label for="phone">Telefon Numarası*</label>
                         <input type="tel" id="phone" name="phone" required placeholder="05XX XXX XX XX">
                     </div>
 
                     <div class="form-group">
-                        <label for="message">Mesajınız</label>
+                        <label for="message">Mesajınız*</label>
                         <textarea id="message" name="message" rows="5" required placeholder="Mesajınızı buraya yazın..."></textarea>
                     </div>
 
@@ -151,6 +150,44 @@
 
         </main>
     </div>
+    <script>
+    const form = document.getElementById('contact-form');
 
+    form.addEventListener('submit', function(e) {
+        e.preventDefault(); // 1. Sayfanın yenilenmesini durdur
+
+        // Buton yazısını "Gönderiliyor..." yapalım
+        const btn = form.querySelector('.btn-submit');
+        const originalText = btn.innerHTML;
+        btn.innerHTML = 'Gönderiliyor... <i class="fas fa-spinner fa-spin"></i>';
+
+        // 2. Verileri FormSubmit'e arka planda gönder (AJAX)
+        fetch(form.action, {
+            method: 'POST',
+            body: new FormData(form),
+            headers: {
+                'Accept': 'application/json'
+            }
+        })
+        .then(response => {
+            if (response.ok) {
+                // 3. Başarılıysa uyarı kutusunu (Alert) aç
+                alert("Mesajınız başarıyla gönderildi! En kısa sürede dönüş yapacağım.");
+
+                // 4. Form kutularını temizle
+                form.reset();
+            } else {
+                alert("Bir hata oluştu. Lütfen tekrar deneyin.");
+            }
+        })
+        .catch(error => {
+            alert("Sunucu hatası! Lütfen internet bağlantınızı kontrol edin.");
+        })
+        .finally(() => {
+            // İşlem bitince butonu eski haline getir
+            btn.innerHTML = originalText;
+        });
+    });
+    </script>
 </body>
 </html>
