@@ -120,74 +120,90 @@
                     </div>
                 </div>
 
-                <form action="https://formsubmit.co/dgurkanyasar27@gmail.com" method="POST" class="contact-form">
+                <form action="https://formsubmit.co/dgurkanyasar27@gmail.com" method="POST" class="contact-form"onsubmit="formGonder(event)">
 
-                    <input type="hidden" name="_captcha" value="false">
+                        <input type="hidden" name="_captcha" value="false">
 
-                    <div class="form-group">
-                        <label for="name">İsim Soyisim*</label>
-                        <input type="text" id="name" name="name" required placeholder="Adınız">
-                    </div>
+                        <div class="form-group">
+                            <label for="name">İsim Soyisim*</label>
+                            <input type="text" id="name" name="name" required placeholder="Adınız">
+                        </div>
 
-                    <div class="form-group">
-                        <label for="email">E-posta Adresi*</label>
-                        <input type="email" id="email" name="email" required placeholder="ornek@email.com">
-                    </div>
+                        <div class="form-group">
+                            <label for="email">E-posta Adresi*</label>
+                            <input type="email" id="email" name="email" required placeholder="ornek@email.com">
+                        </div>
 
-                    <div class="form-group">
-                        <label for="phone">Telefon Numarası*</label>
-                        <input type="tel" id="phone" name="phone" required placeholder="05XX XXX XX XX">
-                    </div>
+                        <div class="form-group">
+                            <label for="phone">Telefon Numarası*</label>
+                            <input type="tel" id="phone" name="phone" required placeholder="05XX XXX XX XX">
+                        </div>
 
-                    <div class="form-group">
-                        <label for="message">Mesajınız*</label>
-                        <textarea id="message" name="message" rows="5" required placeholder="Mesajınızı buraya yazın..."></textarea>
-                    </div>
+                        <div class="form-group">
+                            <label for="message">Mesajınız*</label>
+                            <textarea id="message" name="message" rows="5" required placeholder="Mesajınızı buraya yazın..."></textarea>
+                        </div>
 
-                    <button type="submit" class="btn-submit">GÖNDER <i class="fas fa-paper-plane"></i></button>
-                </form>
-            </section>
+                        <button type="submit" class="btn-submit">GÖNDER <i class="fas fa-paper-plane"></i></button>
+                    </form>
+</section>
 
         </main>
     </div>
     <script>
-    const form = document.getElementById('contact-form');
+        function formGonder(e) {
+            e.preventDefault();
 
-    form.addEventListener('submit', function(e) {
-        e.preventDefault(); // 1. Sayfanın yenilenmesini durdur
-
-        // Buton yazısını "Gönderiliyor..." yapalım
-        const btn = form.querySelector('.btn-submit');
-        const originalText = btn.innerHTML;
-        btn.innerHTML = 'Gönderiliyor... <i class="fas fa-spinner fa-spin"></i>';
-
-        // 2. Verileri FormSubmit'e arka planda gönder (AJAX)
-        fetch(form.action, {
-            method: 'POST',
-            body: new FormData(form),
-            headers: {
-                'Accept': 'application/json'
+            // 1. İNTERNET KONTROLÜ
+            if (!navigator.onLine) {
+                alert("⚠️ İnternet bağlantınız yok. Lütfen bağlantınızı kontrol edin.");
+                return;
             }
-        })
-        .then(response => {
-            if (response.ok) {
-                // 3. Başarılıysa uyarı kutusunu (Alert) aç
-                alert("Mesajınız başarıyla gönderildi! En kısa sürede dönüş yapacağım.");
 
-                // 4. Form kutularını temizle
-                form.reset();
-            } else {
-                alert("Bir hata oluştu. Lütfen tekrar deneyin.");
+            const form = e.target;
+            const emailInput = form.querySelector('input[name="email"]');
+            const emailValue = emailInput.value;
+
+            // 2. E-POSTA FORMAT KONTROLÜ (REGEX)
+            // Bu kod şuna bakar: "Yazı var mı?" + "@ işareti var mı?" + "site adı var mı?" + ".com/.net gibi uzantı var mı?"
+            const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+
+            if (!emailRegex.test(emailValue)) {
+                alert("⚠️ Lütfen gerçek bir e-posta adresi girin!\n(Örnek: isim@mail.com)");
+                emailInput.focus(); // İmleci hatalı kutuya götür
+                return; // Gönderme işlemini iptal et
             }
-        })
-        .catch(error => {
-            alert("Sunucu hatası! Lütfen internet bağlantınızı kontrol edin.");
-        })
-        .finally(() => {
-            // İşlem bitince butonu eski haline getir
-            btn.innerHTML = originalText;
-        });
-    });
+
+            // Buradan sonrası aynı (Gönderme İşlemi)
+            const btn = form.querySelector('.btn-submit');
+            const originalText = btn.innerHTML;
+
+            btn.innerHTML = 'Gönderiliyor... <i class="fas fa-spinner fa-spin"></i>';
+            btn.disabled = true;
+
+            fetch(form.action, {
+                method: 'POST',
+                body: new FormData(form),
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+                .then(response => {
+                    if (response.ok) {
+                        alert("✅ Mesajınız başarıyla gönderildi!");
+                        form.reset();
+                    } else {
+                        alert("❌ Servis hatası. Lütfen daha sonra tekrar deneyin.");
+                    }
+                })
+                .catch(error => {
+                    alert("❌ Gönderim başarısız! İnternet bağlantısında sorun olabilir.");
+                })
+                .finally(() => {
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
+                });
+        }
     </script>
 </body>
 </html>
