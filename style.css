@@ -1,0 +1,331 @@
+/* GENEL AYARLAR */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+html {
+    scroll-behavior: smooth; /* Sayfa içi geçişleri yumuşatır */
+}
+
+body {
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+/* ANA DÜZEN (LAYOUT) */
+.container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* SOL TARAF (SIDEBAR) TASARIMI *//*
+.sidebar {
+    width: 350px;
+    background-color: #04011c; 
+    color: white;
+    padding: 40px;
+    text-align: center;
+    position: fixed;
+    height: 100%;
+    overflow-y: auto;
+}*/
+    
+/* Sidebar'ı Flexbox yapısına çeviriyoruz */
+.sidebar {
+    width: 350px;
+    background-color: #04011c; /* Resimdeki koyu lacivert rengin */
+    color: white;
+    padding: 40px;
+    text-align: center;
+    position: fixed;
+    height: 100%;
+    overflow-y: auto;
+    /* --- İŞTE SİHİRLİ KODLAR BURADA --- */
+    display: flex; /* Kutuyu esnek yap */
+    flex-direction: column; /* İçindekileri alt alta diz */
+    align-items: center; /* İçindekileri ortala */
+}
+
+.profile-photo img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 4px solid rgba(255,255,255,0.2);
+    margin-bottom: 20px;
+    object-fit: cover;
+}
+
+.sidebar h1 {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+}
+
+.sidebar .title {
+    color: #bdc3c7;
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+}
+
+/* SOSYAL MEDYA İKONLARI */
+.social-links {
+    margin-bottom: 30px;
+}
+
+.social-links a {
+    color: white;
+    font-size: 1.5rem;
+    margin: 0 10px;
+    transition: 0.3s;
+}
+
+.social-links a:hover {
+    color: #3498db;
+}
+
+.contact-info p {
+    margin-bottom: 10px;
+    color: #ecf0f1;
+}
+
+/* BUTON TASARIMI (CV İNDİR) */
+.btn-download {
+    display: inline-block;
+    margin-top: 30px;
+    padding: 12px 25px;
+    background-color: #3498db;
+    color: white;
+    text-decoration: none;
+    border-radius: 25px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.btn-download:hover {
+    background-color: #2980b9;
+}
+
+/* SAĞ TARAF (İÇERİK) TASARIMI */
+.content {
+    margin-left: 350px;
+    padding: 60px 80px;
+    width: 100%;
+    background-color: white;
+}
+
+.section {
+    margin-bottom: 50px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 30px;
+}
+
+.section:last-child {
+    border-bottom: none;
+}
+
+.section h2 {
+    color: #2c3e50;
+    margin-bottom: 20px;
+    font-size: 1.8rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.section p {
+    line-height: 1.6;
+    color: #555;
+}
+
+/* YETENEK KUTUCUKLARI */
+.skills-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.skill-tag {
+    background-color: #ecf0f1;
+    color: #2c3e50;
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+/* ZAMAN ÇİZELGESİ (TIMELINE) */
+.timeline-item {
+    margin-bottom: 20px;
+}
+
+.timeline-item h3 {
+    font-size: 1.2rem;
+    color: #333;
+}
+
+.timeline-item .date {
+    display: block;
+    color: #7f8c8d;
+    font-size: 0.9rem;
+    margin: 5px 0;
+    font-style: italic;
+}
+
+.timeline-item ul {
+    list-style-position: inside;
+    margin-top: 10px;
+    color: #555;
+}
+
+/* İLETİŞİM FORMU TASARIMI */
+.contact-form {
+    margin-top: 20px;
+    max-width: 600px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    background-color: #f9f9f9;
+    transition: 0.3s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: #3498db;
+    outline: none;
+    background-color: white;
+}
+
+.btn-submit {
+    padding: 12px 30px;
+    background-color: #2c3e50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.3s;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.btn-submit:hover {
+    background-color: #34495e;
+}
+
+/* --- YENİ EKLENEN STİLLER --- */
+
+/* Sol Menüdeki Tek Buton (Bana Ulaşın) */
+/* Butonu en alta iten kod */
+.btn-nav {
+    display: inline-block;
+    /* Bu kod, butonu yukarıdaki her şeyden uzağa, en dibe iter */
+    margin-top: auto;
+    /* Diğer stil ayarları (Değişmedi) */
+    padding: 12px 25px;
+    background-color: #3498db;
+    color: white;
+    text-decoration: none;
+    border-radius: 25px;
+    font-weight: bold;
+    transition: 0.3s;
+    border: none;
+    width: 100%; /* İstersen butonu tam genişlik yapar, daha şık durabilir */
+}
+
+    .btn-nav:hover {
+        background-color: #2980b9; /* Üzerine gelince koyulaşsın */
+        color: white;
+    }
+
+
+/* WhatsApp ve Telegram Kutusu */
+.social-contact {
+    margin-bottom: 30px; /* Form ile arasına mesafe koyar */
+}
+
+    .social-contact p {
+        margin-bottom: 10px;
+        font-weight: bold;
+        color: #555;
+    }
+
+.contact-buttons {
+    display: flex;
+    gap: 15px; /* İki buton arası boşluk */
+    flex-wrap: wrap; /* Mobilde sığmazsa alt alta geçsin */
+}
+
+/* WhatsApp Buton Rengi */
+.btn-whatsapp {
+    background-color: #25D366;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: 0.3s;
+}
+
+    .btn-whatsapp:hover {
+        background-color: #1ebc57;
+    }
+
+/* Telegram Buton Rengi */
+.btn-telegram {
+    background-color: #0088cc;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: 0.3s;
+}
+
+    .btn-telegram:hover {
+        background-color: #0077b5;
+    }
+
+/* MOBİL UYUMLULUK (RESPONSIVE) */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        position: relative;
+        height: auto;
+        padding: 40px 20px;
+    }
+
+    .content {
+        margin-left: 0;
+        padding: 40px 20px;
+    }
+}
