@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
+    <meta charset="UTF-8">
     <meta name="description" content="Davut Gürkan Yaşar - Bilgisayar Mühendisliği Öğrencisi Portfolyosu">
     <meta name="author" content="Davut Gürkan Yaşar">
     <meta name="keywords" content="Davut Gürkan Yaşar, Bilgisayar Mühendisi, Yazılım, Gaziantep, HTML, CSS, C++, Portfolyo">
-    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Davut Gürkan Yaşar | Portfolyo</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
+    <script src="projects-data.js"></script>
+    <script src="common.js"></script>
 </head>
 <body>
 
@@ -44,7 +46,7 @@
                 <nav class="top-nav">
                     <a href="index.html" class="nav-link active">Ana Sayfa</a>
                     <a href="#about" class="nav-link">Hakkımda</a>
-                    <a href="#projects" class="nav-link">Projelerim</a>
+                    <a href="projects.html" class="nav-link">Projelerim</a>
                     <a href="#education" class="nav-link">Eğitim Bilgilerim</a>
                     <a href="#contact" class="nav-link">İletişim</a>
                 </nav>
@@ -53,7 +55,6 @@
                     <img src="https://hatscripts.github.io/circle-flags/flags/gb.svg" alt="English">
                 </a>
             </header>
-            
 
             <section class="section" id="about">
                 <h2><i class="fas fa-user"></i> Hakkımda</h2>
@@ -89,53 +90,9 @@
 
             <section class="section" id="projects">
                 <h2><i class="fas fa-laptop-code"></i> Projelerim</h2>
+                <a href="projects.html" class="see-all-btn">Tümünü Gör <i class="fas fa-arrow-right"></i></a>
                 <p>Geliştirdiğim ve üzerinde çalıştığım güncel projeler.</p>
-
-                <div class="projects-grid">
-
-                    <div class="project-card">
-                        <div class="card-header">
-                            <i class="fas fa-globe code-icon"></i>
-                        </div>
-                        <div class="card-body">
-                            <h3>Kişisel Portfolyo Sitesi</h3>
-                            <p>Modern web teknolojileri kullanılarak geliştirilmiş, çok dilli (TR/EN), mobil uyumlu ve kişisel markamı yansıtan web projesi.</p>
-
-                            <div class="tech-stack">
-                                <span>HTML5</span>
-                                <span>CSS3</span>
-                                <span>JavaScript</span>
-                            </div>
-
-                            <div class="card-links">
-                                <a href="https://github.com/gurkanyasar/gurkanyasar.github.io" target="_blank" class="btn-card">
-                                    <i class="fab fa-github"></i> Kaynak Kod
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="project-card coming-soon">
-                        <div class="card-header">
-                            <i class="fas fa-shield-alt code-icon"></i>
-                        </div>
-                        <div class="card-body">
-                            <h3>Ağ Güvenliği Tarayıcısı</h3>
-                            <p>Python tabanlı, yerel ağdaki basit güvenlik açıklarını tespit eden ve raporlayan siber güvenlik aracı.</p>
-
-                            <div class="tech-stack">
-                                <span>Python</span>
-                                <span>Socket</span>
-                                <span>Scapy</span>
-                            </div>
-
-                            <div class="card-status">
-                                <i class="fas fa-tools"></i> Geliştirme Aşamasında
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
+                <div class="projects-grid-container"></div>
             </section>
 
             <section class="section" id="education">
@@ -207,85 +164,5 @@
     <a href="#" class="scroll-top" id="scrollTopBtn">
         <i class="fas fa-chevron-up"></i>
     </a>
-
-    <script>
-        function formGonder(e) {
-            e.preventDefault();
-
-            if (!navigator.onLine) {
-                alert("⚠️ İnternet bağlantınız yok. Lütfen bağlantınızı kontrol edin.");
-                return;
-            }
-
-            const form = e.target;
-            const emailInput = form.querySelector('input[name="email"]');
-            const emailValue = emailInput.value;
-
-            const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
-
-            if (!emailRegex.test(emailValue)) {
-                alert("⚠️ Lütfen gerçek bir e-posta adresi girin!\n(Örnek: isim@mail.com)");
-                emailInput.focus();
-                return;
-            }
-
-            const btn = form.querySelector('.btn-submit');
-            const originalText = btn.innerHTML;
-
-            btn.innerHTML = 'Gönderiliyor... <i class="fas fa-spinner fa-spin"></i>';
-            btn.disabled = true;
-
-            fetch(form.action, {
-                method: 'POST',
-                body: new FormData(form),
-                headers: { 'Accept': 'application/json' }
-            })
-                .then(response => {
-                    if (response.ok) {
-                        alert("✅ Mesajınız başarıyla gönderildi!");
-                        form.reset();
-                    } else {
-                        alert("❌ Servis hatası. Lütfen daha sonra tekrar deneyin.");
-                    }
-                })
-                .catch(error => {
-                    alert("❌ Gönderim başarısız! İnternet bağlantısında sorun olabilir.");
-                })
-                .finally(() => {
-                    btn.innerHTML = originalText;
-                    btn.disabled = false;
-                });
-        }
-
-        const scrollBtn = document.getElementById('scrollTopBtn');
-
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 300) {
-                scrollBtn.classList.add('active');
-            } else {
-                scrollBtn.classList.remove('active');
-            }
-        });
-
-        function setTooltipPositions() {
-            const skillTags = document.querySelectorAll('.skill-tag');
-            const screenWidth = window.innerWidth;
-
-            skillTags.forEach(tag => {
-                const rect = tag.getBoundingClientRect();
-                const buttonCenter = rect.left + (rect.width / 2);
-
-                if (buttonCenter > screenWidth / 2) {
-                    tag.classList.add('align-right');
-                } else {
-                    tag.classList.remove('align-right');
-                }
-            });
-        }
-
-        window.addEventListener('load', setTooltipPositions);
-        window.addEventListener('resize', setTooltipPositions);
-        setTooltipPositions();
-    </script>
 </body>
 </html>
